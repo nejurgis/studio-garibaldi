@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Content Manager</title>
+  </head>
+  <body>
+    <!-- Include the script that builds the page and powers Decap CMS -->
+    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+    <!-- Register preview templates -->
+    <script>
+      // HomePage Preview Template with inline styles
+      const HomePagePreview = createClass({
+        render: function() {
+          const entry = this.props.entry;
+          const description = entry.getIn(['data', 'description']);
+          const email = entry.getIn(['data', 'contact', 'email']);
+          const phone = entry.getIn(['data', 'contact', 'phone']);
+
+          const containerStyle = {
+            minHeight: '100vh',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            background: 'rgb(249, 244, 233)',
+            fontFamily: 'Helvetica, Arial, sans-serif',
+            padding: '5rem',
+            margin: 0
+          };
+
+          const pageStyle = {
+            width: '100%',
+            maxWidth: '1200px',
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: '2rem'
+          };
+
+          const descriptionLeftStyle = {
+            flex: 1,
+            height: 'fit-content'
+          };
+
+          const descriptionRightStyle = {
+            flex: 1,
+            height: 'fit-content'
+          };
+
+          const textStyle = {
+            lineHeight: '2.5rem',
+            color: 'rgb(212, 34, 38)',
+            fontFamily: 'Helvetica, Arial, sans-serif',
+            fontSize: '2rem',
+            margin: 0
+          };
+
+          const textRightStyle = {
+            ...textStyle,
+            textAlign: 'right'
+          };
+
+          const linkStyle = {
+            color: 'rgb(212, 34, 38)',
+            textDecoration: 'underline'
+          };
+
+          const logoContainerStyle = {
+            flex: 1,
+            height: 'fit-content',
+            alignSelf: 'center',
+            textAlign: 'center'
+          };
+
+          const logoStyle = {
+            width: '100%',
+            height: 'auto',
+            maxWidth: '200px',
+            margin: '0 auto',
+            display: 'block'
+          };
+
+          return h('div', { style: containerStyle },
+            h('div', { style: pageStyle },
+              h('div', { style: descriptionLeftStyle },
+                h('p', { style: textStyle }, description)
+              ),
+              h('div', { style: logoContainerStyle },
+                h('svg', {
+                  style: logoStyle,
+                  viewBox: '0 0 200 200',
+                  xmlns: 'http://www.w3.org/2000/svg'
+                },
+                  h('circle', { cx: '100', cy: '100', r: '80', fill: 'rgb(212, 34, 38)' }),
+                  h('text', {
+                    x: '100',
+                    y: '120',
+                    fontSize: '60',
+                    fill: 'white',
+                    textAnchor: 'middle',
+                    fontFamily: 'Helvetica'
+                  }, 'SG')
+                )
+              ),
+              h('div', { style: descriptionRightStyle },
+                email && h('p', { style: textRightStyle },
+                  h('a', { href: 'mailto:' + email, style: linkStyle }, email)
+                ),
+                phone && h('p', { style: textRightStyle }, phone)
+              )
+            )
+          );
+        }
+      });
+
+      // Register the preview template
+      CMS.registerPreviewTemplate('nl', HomePagePreview);
+      CMS.registerPreviewTemplate('en', HomePagePreview);
+    </script>
+  </body>
+</html>

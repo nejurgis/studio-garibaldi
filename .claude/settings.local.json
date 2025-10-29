@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run dev:*)",
+      "Read(//Users/naive/CODE/studio-garibaldi/src/**)",
+      "Read(//Users/naive/CODE/studio-garibaldi/pages/**)",
+      "Read(//Users/naive/CODE/studio-garibaldi/**)",
+      "Bash(cat:*)",
+      "Read(//var/folders/v5/qwybzdcs41ng98w_w3vtb1t00000gn/T/TemporaryItems/NSIRD_screencaptureui_KOrnE9/**)",
+      "Bash(npm install:*)",
+      "WebSearch",
+      "Read(//Users/naive/CODE/inNout/src/cms/preview-templates/**)",
+      "Bash(npm run build:cms:*)",
+      "Bash(curl:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

@@ -1,0 +1,26 @@
+.logo-container {
+  height: fit-content;
+  flex: 1;
+  align-self: center;
+  justify-self: center;
+}
+
+.logo-image {
+  width: 100%;
+  height: auto;
+}
+
+@media (max-width: 768px) {
+  .logo-container {
+    align-self: center;
+    position: initial;
+    order: -1;
+    flex: 0.8;
+    width: 80%;
+  }
+
+  .logo-image {
+    max-width: 80%;
+    margin: 0 auto;
+  }
+}

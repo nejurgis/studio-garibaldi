@@ -1,0 +1,34 @@
+---
+import '../styles/page.css';
+import Logo from './Logo.astro';
+import LanguageSwitcher from './LanguageSwitcher.astro';
+import nlContent from '../data/nl.json';
+import enContent from '../data/en.json';
+
+interface Props {
+  locale: string;
+}
+
+const { locale } = Astro.props;
+
+// Get content based on locale
+const content = locale === 'nl' ? nlContent : enContent;
+
+const page = { description: content.description };
+const contact = content.contact;
+---
+
+<div class="description-left">
+  <p class="description-text">{page.description}</p>
+</div>
+
+<Logo />
+
+<LanguageSwitcher />
+
+<div class="description-right">
+  <p class="description-text">
+    <a href={`mailto:${contact.email}`}>{contact.email}</a>
+  </p>
+  <p class="description-text">{contact.phone}</p>
+

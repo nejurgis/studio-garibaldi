@@ -1,0 +1,38 @@
+---
+import '../styles/page.css';
+
+interface Props {
+  locale: string;
+}
+
+const { locale } = Astro.props;
+
+const content: Record<string, { title: string; description: string; details: string }> = {
+  en: {
+    title: "About",
+    description: "Studio Garibaldi was founded in 2019 by Fabian Streefland and offers legal advice to companies and individuals. Also, Studio Garibaldi offers strategic advice in the field of real estate development.",
+    details: "With over 15 years of experience in corporate law and real estate, Fabian Streefland provides tailored solutions for complex legal challenges. Our approach combines deep legal expertise with a practical understanding of business dynamics."
+  },
+  nl: {
+    title: "Over Ons",
+    description: "Studio Garibaldi is opgericht in 2019 door Fabian Streefland en biedt juridisch advies aan bedrijven en particulieren. Daarnaast biedt Studio Garibaldi strategisch advies op het gebied van vastgoedontwikkeling.",
+    details: "Met meer dan 15 jaar ervaring in ondernemingsrecht en vastgoed biedt Fabian Streefland maatwerk voor complexe juridische uitdagingen. Onze aanpak combineert diepgaande juridische expertise met praktisch zakelijk inzicht."
+  }
+};
+
+const page = content[locale] || content.nl;
+---
+
+<div class="about-page">
+  <div class="page-title">
+    <h1>{page.title}</h1>
+  </div>
+  <div class="page-content">
+    <section class="description-section">
+      <p>{page.description}</p>
+    </section>
+    <section class="details-section">
+      <p>{page.details}</p>
+    </section>
+  </div>
+</div>

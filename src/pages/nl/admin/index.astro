@@ -1,0 +1,112 @@
+---
+// Admin page for Decap CMS
+---
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/admin/config.yml" type="text/yaml" rel="cms-config-url">
+    <title>Content Manager</title>
+    <style>
+      .preview-container {
+        min-height: 100vh;
+        display: flex;
+        background: rgb(249, 244, 233);
+        font-family: Helvetica, Arial, sans-serif;
+        padding: 5rem;
+      }
+      .preview-inner {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        flex-direction: row;
+        width: 100%;
+      }
+      .preview-logo {
+        height: fit-content;
+        flex: 1;
+        align-self: center;
+        text-align: center;
+      }
+      .preview-logo img {
+        width: 100%;
+        height: auto;
+        max-width: 300px;
+      }
+      .preview-description {
+        height: fit-content;
+        order: -1;
+        flex: 1;
+      }
+      .preview-description p {
+        line-height: 2.5rem;
+        color: rgb(212, 34, 38);
+        font-family: Helvetica, Arial, sans-serif;
+        font-size: 2rem;
+        margin: 0;
+      }
+      .preview-contact {
+        height: fit-content;
+        flex: 1;
+      }
+      .preview-contact p {
+        line-height: 2.5rem;
+        color: rgb(212, 34, 38);
+        font-family: Helvetica, Arial, sans-serif;
+        font-size: 2rem;
+        text-align: right;
+        margin: 0;
+      }
+      .preview-contact a {
+        color: rgb(212, 34, 38);
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Include the script that builds the page and powers Decap CMS -->
+    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+    <script>
+      // Register external CSS file for preview
+      CMS.registerPreviewStyle('/admin/preview.css');
+
+      // Wait for CMS to be ready
+      CMS.registerPreviewTemplate('nl', createPreviewTemplate('Dutch'));
+      CMS.registerPreviewTemplate('en', createPreviewTemplate('English'));
+
+      function createPreviewTemplate(language) {
+        const PreviewComponent = createClass({
+          render: function() {
+            const entry = this.props.entry;
+            const data = entry.get('data').toJS();
+
+            return h('div', { className: 'preview-container' },
+              h('div', { className: 'preview-inner' },
+                h('div', { className: 'preview-description' },
+                  h('p', null, data.description || 'No description yet...')
+                ),
+                h('div', { className: 'preview-logo' },
+                  h('img', { src: '/studio-garibaldi.svg', alt: 'Studio Garibaldi Logo' })
+                ),
+                h('div', { className: 'preview-contact' },
+                  h('p', null,
+                    h('a', { href: 'mailto:' + (data.contact?.email || '') },
+                      data.contact?.email || 'No email set'
+                    )
+                  ),
+                  h('p', null, data.contact?.phone || 'No phone set')
+                )
+              )
+            );
+          }
+        });
+
+        return PreviewComponent;
+      }
+
+      const createClass = CMS.createClass;
+      const h = CMS.h;
+    </script>
+  </body>
+</html>

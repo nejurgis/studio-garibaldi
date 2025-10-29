@@ -1,0 +1,34 @@
+backend:
+  name: test-repo
+
+local_backend: true
+
+media_folder: "public/images"
+public_folder: "/images"
+
+collections:
+  - name: "pages"
+    label: "Pages"
+    files:
+      - label: "Dutch Homepage"
+        name: "nl"
+        file: "src/data/nl.json"
+        fields:
+          - { label: "Description", name: "description", widget: "text" }
+          - label: "Contact"
+            name: "contact"
+            widget: "object"
+            fields:
+              - { label: "Email", name: "email", widget: "string" }
+              - { label: "Phone", name: "phone", widget: "string" }
+      - label: "English Homepage"
+        name: "en"
+        file: "src/data/en.json"
+        fields:
+          - { label: "Description", name: "description", widget: "text" }
+          - label: "Contact"
+            name: "contact"
+            widget: "object"
+            fields:
+              - { label: "Email", name: "email", widget: "string" }
+              - { label: "Phone", name: "phone", widget: "string" }

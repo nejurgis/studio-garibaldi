@@ -1,0 +1,34 @@
+---
+import '../styles/navigation.css';
+import LanguageSwitcher from './LanguageSwitcher.astro';
+
+const currentLocale = Astro.currentLocale;
+
+// Simple translation for nav
+const translations: Record<string, { about: string; home: string }> = {
+  en: { home: 'Home', about: 'About' },
+  nl: { home: 'Home', about: 'Over Ons' },
+};
+
+const t = translations[currentLocale as keyof typeof translations] || translations.en;
+const basePath = currentLocale === 'nl' ? '/' : '/en/';
+const aboutPath = currentLocale === 'nl' ? '/about' : '/en/about';
+---
+
+<nav class="navigation">
+  <div class="nav-content">
+    <ul class="nav-list">
+      <li>
+        <a href={basePath} class="nav-link">
+          {t.home}
+        </a>
+      </li>
+      <li>
+        <a href={aboutPath} class="nav-link">
+          {t.about}
+        </a>
+      </li>
+    </ul>
+    <LanguageSwitcher />
+  </div>
+</nav>

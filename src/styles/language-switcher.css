@@ -1,0 +1,25 @@
+.language-container {
+  z-index: 999;
+  position: absolute;
+  right: 2.5rem;
+  top: 2.5rem;
+  height: fit-content;
+  display: flex;
+  align-content: flex-start;
+}
+
+.language-link {
+  display: inline-block;
+  color: rgb(212, 34, 38);
+  font-size: 3rem;
+  text-decoration: none;
+}
+
+@media (max-width: 768px) {
+  .language-container {
+    position: inherit;
+    align-self: flex-start;
+    order: -1;
+    margin-bottom: 4rem;
+  }
+}

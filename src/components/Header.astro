@@ -1,0 +1,14 @@
+---
+import '../styles/header.css';
+import Navigation from './Navigation.astro';
+import Logo from './Logo.astro';
+
+const currentLocale = Astro.currentLocale;
+---
+
+<header class="header">
+  <div class="header-container">
+    <Logo />
+    <Navigation />
+  </div>
+</header>
