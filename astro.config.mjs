@@ -1,7 +1,7 @@
 import { defineConfig } from 'astro/config';
 
 export default defineConfig({
-  site: 'https://studio-garibaldi.netlify.app',
+  site: 'https://garibaldi.netlify.app',
   integrations: [],
   i18n: {
     defaultLocale: 'nl',
