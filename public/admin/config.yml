@@ -1,5 +1,6 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: nejurgis/studio-garibaldi
   branch: main
 
 # Uncomment for local development
