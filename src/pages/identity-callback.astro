@@ -1,0 +1,31 @@
+---
+// Dedicated page for Netlify Identity callbacks
+export const prerender = false;
+---
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Processing...</title>
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  </head>
+  <body>
+    <div style="display: flex; align-items: center; justify-content: center; height: 100vh; font-family: sans-serif;">
+      <p>Processing your invitation...</p>
+    </div>
+    <script is:inline>
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on("init", user => {
+          if (!user) {
+            window.netlifyIdentity.on("login", () => {
+              document.location.href = "/admin/";
+            });
+          } else {
+            document.location.href = "/admin/";
+          }
+        });
+      }
+    </script>
+  </body>
+</html>
