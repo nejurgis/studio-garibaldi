@@ -1,7 +1,0 @@
-# Netlify Identity redirect - preserve hash fragments for invite tokens
-/  /nl/  302!  Hash=invite_token*
-/  /nl/  302!  Hash=recovery_token*
-/  /nl/  302!  Hash=confirmation_token*
-
-# Admin redirects
-/admin  /admin/  301
