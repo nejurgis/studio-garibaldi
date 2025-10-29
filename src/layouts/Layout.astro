@@ -37,6 +37,12 @@ const { title, description } = Astro.props;
             });
           }
         });
+
+        // Check for invite/recovery tokens and open the modal
+        const hash = window.location.hash;
+        if (hash && (hash.includes('invite_token') || hash.includes('recovery_token') || hash.includes('confirmation_token'))) {
+          window.netlifyIdentity.open();
+        }
       }
     </script>
   </body>
