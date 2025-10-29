@@ -8,7 +8,7 @@ export default defineConfig({
     locales: ['en', 'nl'],
     routing: {
       prefixDefaultLocale: true,
-      fallbackType: 'redirect',
+      fallbackType: 'rewrite', // Changed from 'redirect' to 'rewrite' to preserve hash fragments
     },
   },
   vite: {
