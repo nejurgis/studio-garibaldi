@@ -9,3 +9,14 @@ export const prerender = true;
 <Layout title="Home - Studio Garibaldi" description="Studio Garibaldi - Juridisch Advies en Vastgoedontwikkeling">
   <HomePage locale="nl" />
 </Layout>
+
+<script is:inline>
+  // Check for Netlify Identity tokens before any redirect
+  if (window.location.hash) {
+    const hash = window.location.hash;
+    if (hash.includes('invite_token') || hash.includes('recovery_token') || hash.includes('confirmation_token')) {
+      // Stop here and let Netlify Identity handle it
+      console.log('Netlify Identity token detected, waiting for widget...');
+    }
+  }
+</script>
