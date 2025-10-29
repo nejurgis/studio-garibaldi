@@ -1,7 +1,9 @@
 backend:
-  name: test-repo
+  name: git-gateway
+  branch: main
 
-local_backend: true
+# Uncomment for local development
+# local_backend: true
 
 media_folder: "public/images"
 public_folder: "/images"
