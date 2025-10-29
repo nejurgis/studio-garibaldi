@@ -1,18 +1,6 @@
 ---
-// This is the root page
+// This is the root page - check for Identity tokens client-side
 export const prerender = false;
-
-const hasIdentityToken = Astro.url.hash && (
-  Astro.url.hash.includes('invite_token') ||
-  Astro.url.hash.includes('recovery_token') ||
-  Astro.url.hash.includes('confirmation_token') ||
-  Astro.url.hash.includes('access_token')
-);
-
-// If no Identity token, redirect to /nl/
-if (!hasIdentityToken && Astro.url.pathname === '/') {
-  return Astro.redirect('/nl/', 302);
-}
 ---
 
 <!DOCTYPE html>
@@ -25,22 +13,33 @@ if (!hasIdentityToken && Astro.url.pathname === '/') {
   </head>
   <body>
     <div style="display: flex; align-items: center; justify-content: center; height: 100vh; font-family: sans-serif;">
-      <p>Processing...</p>
+      <p>Loading...</p>
     </div>
     <script is:inline>
-      // If we got here, there's an Identity token in the hash
-      if (window.netlifyIdentity) {
-        window.netlifyIdentity.on("init", user => {
-          if (!user) {
-            window.netlifyIdentity.on("login", () => {
+      // Check for Identity tokens in the hash
+      const hash = window.location.hash;
+      const hasIdentityToken = hash && (
+        hash.includes('invite_token') ||
+        hash.includes('recovery_token') ||
+        hash.includes('confirmation_token') ||
+        hash.includes('access_token')
+      );
+
+      if (hasIdentityToken) {
+        // Wait for Identity widget to handle the token
+        if (window.netlifyIdentity) {
+          window.netlifyIdentity.on("init", user => {
+            if (!user) {
+              window.netlifyIdentity.on("login", () => {
+                document.location.href = "/admin/";
+              });
+            } else {
               document.location.href = "/admin/";
-            });
-          } else {
-            document.location.href = "/admin/";
-          }
-        });
+            }
+          });
+        }
       } else {
-        // No token, shouldn't be here
+        // No token, redirect to the Dutch homepage
         window.location.href = '/nl/';
       }
     </script>
