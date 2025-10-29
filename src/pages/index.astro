@@ -1,22 +1,48 @@
 ---
-// This is the root redirect page
-import Layout from '../layouts/Layout.astro';
-import HomePage from '../components/HomePage.astro';
+// This is the root page
+export const prerender = false;
 
-export const prerender = true;
+const hasIdentityToken = Astro.url.hash && (
+  Astro.url.hash.includes('invite_token') ||
+  Astro.url.hash.includes('recovery_token') ||
+  Astro.url.hash.includes('confirmation_token') ||
+  Astro.url.hash.includes('access_token')
+);
+
+// If no Identity token, redirect to /nl/
+if (!hasIdentityToken && Astro.url.pathname === '/') {
+  return Astro.redirect('/nl/', 302);
+}
 ---
 
-<Layout title="Home - Studio Garibaldi" description="Studio Garibaldi - Juridisch Advies en Vastgoedontwikkeling">
-  <HomePage locale="nl" />
-</Layout>
-
-<script is:inline>
-  // Check for Netlify Identity tokens before any redirect
-  if (window.location.hash) {
-    const hash = window.location.hash;
-    if (hash.includes('invite_token') || hash.includes('recovery_token') || hash.includes('confirmation_token')) {
-      // Stop here and let Netlify Identity handle it
-      console.log('Netlify Identity token detected, waiting for widget...');
-    }
-  }
-</script>
+<!DOCTYPE html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Studio Garibaldi</title>
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  </head>
+  <body>
+    <div style="display: flex; align-items: center; justify-content: center; height: 100vh; font-family: sans-serif;">
+      <p>Processing...</p>
+    </div>
+    <script is:inline>
+      // If we got here, there's an Identity token in the hash
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on("init", user => {
+          if (!user) {
+            window.netlifyIdentity.on("login", () => {
+              document.location.href = "/admin/";
+            });
+          } else {
+            document.location.href = "/admin/";
+          }
+        });
+      } else {
+        // No token, shouldn't be here
+        window.location.href = '/nl/';
+      }
+    </script>
+  </body>
+</html>
