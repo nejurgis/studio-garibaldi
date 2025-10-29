@@ -1,47 +1,11 @@
 ---
-// This is the root page - check for Identity tokens client-side
+// Root page - no redirect, just show homepage
+import Layout from '../layouts/Layout.astro';
+import HomePage from '../components/HomePage.astro';
+
 export const prerender = false;
 ---
 
-<!DOCTYPE html>
-<html lang="nl">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Studio Garibaldi</title>
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-  </head>
-  <body>
-    <div style="display: flex; align-items: center; justify-content: center; height: 100vh; font-family: sans-serif;">
-      <p>Loading...</p>
-    </div>
-    <script is:inline>
-      // Check for Identity tokens in the hash
-      const hash = window.location.hash;
-      const hasIdentityToken = hash && (
-        hash.includes('invite_token') ||
-        hash.includes('recovery_token') ||
-        hash.includes('confirmation_token') ||
-        hash.includes('access_token')
-      );
-
-      if (hasIdentityToken) {
-        // Wait for Identity widget to handle the token
-        if (window.netlifyIdentity) {
-          window.netlifyIdentity.on("init", user => {
-            if (!user) {
-              window.netlifyIdentity.on("login", () => {
-                document.location.href = "/admin/";
-              });
-            } else {
-              document.location.href = "/admin/";
-            }
-          });
-        }
-      } else {
-        // No token, redirect to the Dutch homepage
-        window.location.href = '/nl/';
-      }
-    </script>
-  </body>
-</html>
+<Layout title="Studio Garibaldi" description="Studio Garibaldi - Juridisch Advies en Vastgoedontwikkeling">
+  <HomePage locale="nl" />
+</Layout>
