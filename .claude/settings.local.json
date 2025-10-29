@@ -11,7 +11,10 @@
       "WebSearch",
       "Read(//Users/naive/CODE/inNout/src/cms/preview-templates/**)",
       "Bash(npm run build:cms:*)",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)"
     ],
     "deny": [],
     "ask": []

@@ -8,16 +8,6 @@ const pagesCollection = defineCollection({
   }),
 });
 
-const contactCollection = defineCollection({
-  type: 'data',
-  schema: z.object({
-    email: z.string().email(),
-    phone: z.string(),
-    address: z.string().optional(),
-  }),
-});
-
 export const collections = {
   pages: pagesCollection,
-  contact: contactCollection,
 };
