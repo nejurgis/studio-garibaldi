@@ -14,7 +14,10 @@
       "Bash(curl:*)",
       "Bash(git add:*)",
       "Bash(git commit:*)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "WebFetch(domain:decapcms.org)",
+      "WebFetch(domain:docs.astro.build)",
+      "WebFetch(domain:decapbridge.com)"
     ],
     "deny": [],
     "ask": []
